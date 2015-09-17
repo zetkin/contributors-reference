@@ -22,6 +22,11 @@ All documentation in this repository is in Markdown format. You can read it in
 plain text or formatted by the GitHub interface, or any other compatible
 viewer.
 
+The documentation is organized in folders by topic.
+
+* `/style`: This folder contains style guides for languages used in the Zetkin
+  project, organized in sub-folders by language file extension.
+
 ## Changes to this documentation
 Although all modules of the Zetkin project must follow the rules set forth in
 this documentation, these documents themselves, like anything in an open-source
