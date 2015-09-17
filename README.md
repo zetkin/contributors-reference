@@ -36,3 +36,9 @@ If you find something that you believe is incorrect, or if you have another
 opinion about best practices than one found in this documentation, you should
 submit a pull request to this repository and argue why the documentation (and
 hence the rules and guides therein) should be changed.
+
+## Did you find non-conforming code?
+If you find a piece of code that you believe do not follow the style described
+in this documentation, submit a pull request to the repository containing the
+incorrect code, or file an issue report for that repository, referencing the
+part of the Contributors Reference that it violates.
