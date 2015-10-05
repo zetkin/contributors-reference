@@ -57,7 +57,7 @@ component, or other components appearing within the context of the named
 component.
 
 In other words, styling defined in `MyComponent.scss` is not allowed to affect
-the style or layout of `OtherComponent`, unless in cases where `OtherComponent`
+the style or layout of `OtherComponent`, except in cases where `OtherComponent`
 is composed within `MyComponent`.
 
 ```scss
