@@ -16,7 +16,7 @@ $ cd account.zetk.in
 $ docker build -t account_zetk_in env/app
 $ npm install
 $ gulp
-$ docker run -d -v $PWD:/var/app -n account_zetk_in \
+$ docker run -d -v $PWD:/var/app --name account_zetk_in \
     --env ZETKIN_LOGIN_URL=http://login.dev.zetkin.org \
     --env ZETKIN_APP_ID=a2 \
     --env ZETKIN_APP_KEY=abc123 \
