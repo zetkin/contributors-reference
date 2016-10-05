@@ -32,8 +32,8 @@ which are instances of _images_ that define the entire system in which the apps
 run. Images can be described in a _Dockerfile_ which defines all the steps that
 are necessary to re-create the system.
 
-All Zetkin applications have Dockerfiles that set up all prerequisites and runs
-the application. This means that to get started with Zetkin development, all you
+All Zetkin apps come with a Dockerfile that set up all prerequisites and run the
+application. This means that to get started with Zetkin development, all you
 need is Docker, and the rest will be installed in a self-contained environment
 that does not affect your main system.
 
