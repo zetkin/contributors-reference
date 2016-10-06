@@ -11,19 +11,19 @@ authentication workflow the following might make sense to you. Otherwise,
 continue reading for a detailed walk-through.
 
 ```
-$ git clone git@github.com:richardolsson/account.zetk.in.git
-$ cd account.zetk.in
-$ docker build -t account_zetk_in env/app
+$ git clone git@github.com:richardolsson/www.zetk.in.git
+$ cd www.zetk.in
+$ docker build -t www_zetk_in env/app
 $ npm install
 $ gulp
-$ docker run -d -v $PWD:/var/app --name account_zetk_in \
+$ docker run -d -v $PWD:/var/app --name www_zetk_in \
     --env ZETKIN_LOGIN_URL=http://login.dev.zetkin.org \
-    --env ZETKIN_APP_ID=a2 \
-    --env ZETKIN_APP_KEY=abc123 \
+    --env ZETKIN_APP_ID=a4 \
+    --env ZETKIN_APP_KEY=ghi789 \
     --env ZETKIN_DOMAIN=dev.zetkin.org \
-    -p 80:8000 account_zetk_in
-$ sudo sh -c 'echo "127.0.0.1 account.dev.zetkin.org" >> /etc/hosts'
-$ ZETKIN_CONTAINER_NAME=account_zetk_in gulp watch
+    -p 80:80 www_zetk_in
+$ sudo sh -c 'echo "127.0.0.1 www.dev.zetkin.org" >> /etc/hosts'
+$ ZETKIN_CONTAINER_NAME=www_zetk_in gulp watch
 ```
 
 ## Docker basics
@@ -71,8 +71,8 @@ be broken down to a few steps.
 3. Hook up your local app to the Zetkin development instance at dev.zetkin.org.
 4. Make changes to the local code and test them in your new environment.
 
-Lets look at a case where you want to contribute to the Zetkin account portal
-(_account.zetk.in_) by slightly changing the style.
+Lets look at a case where you want to contribute to the Zetkin activist portal
+(_www.zetk.in_) by slightly changing the style.
 
 ### 1. Get the source code
 Code for the open-source official Zetkin applications is available on GitHub.
@@ -87,8 +87,8 @@ is richardolsson. All you need to do is find a suitable location on your drive
 and clone your fork of the application repository.
 
 ```
-$ git clone git@github.com:richardolsson/account.zetk.in.git
-$ cd account.zetk.in
+$ git clone git@github.com:richardolsson/www.zetk.in.git
+$ cd www.zetk.in
 ```
 
 This creates a local copy of the code. If you're not familiar with Git, please
@@ -104,31 +104,39 @@ Assuming that you are not using Docker Machine, but instead the most
 simple Docker set up, building the image is just a single Docker command.
 
 ```
-$ docker build -t account_zetk_in env/app
+$ docker build -t www_zetk_in env/app
 ```
 
-Because account.zetk.in is a Node app, you also need to install npm dependencies
-and build the source code using Gulp.
+Because www.zetk.in is a Node app, you also need to install npm dependencies
+and build the source code using Gulp. If you have npm and gulp pre-installed
+in your system, just do the following.
 
 ```
 $ npm install
 $ gulp
 ```
 
+If you do not have npm and gulp, you can install it, or if you prefer to
+keep your system completely clean, run it from within the Docker container, but
+that is left as an excercise for the reader for now.
+
 ### 3. Running and connecting it all
 The next step is to run the Docker image inside a container. The following
-Docker command creates a container from the recently created `account_zetk_in`
+Docker command creates a container from the recently created `www_zetk_in`
 image, calls the container by that same name, sets a bunch of required variables
 which the application uses to connect to the correct (development) instance
 and listens for incoming connections on port 80.
 
+The app ID and key vary from application to application. Talk to the project
+managers if you need the correct values for another app than www.zetk.in.
+
 ```
-$ docker run -d -v $PWD:/var/app --name account_zetk_in \
+$ docker run -d -v $PWD:/var/app --name www_zetk_in \
     --env ZETKIN_LOGIN_URL=http://login.dev.zetkin.org \
-    --env ZETKIN_APP_ID=a2 \
-    --env ZETKIN_APP_KEY=abc123 \
+    --env ZETKIN_APP_ID=a4 \
+    --env ZETKIN_APP_KEY=ghi789 \
     --env ZETKIN_DOMAIN=dev.zetkin.org \
-    -p 80:8000 account_zetk_in
+    -p 80:80 www_zetk_in
 ```
 
 Running this command should start the application and start serving it at
@@ -137,7 +145,7 @@ requires a user to be authenticated, it will instantly redirect you to the
 Zetkin login page at http://login.dev.zetkin.org.
 
 This is perfectly fine, except once you've logged in, you will be redirected to
-http://account.dev.zetkin.org (because that's the callback that has been
+http://www.dev.zetkin.org (because that's the callback that has been
 configured for the app in the Zetkin application registry). This is a security
 feature, that prevents other applications from redirecting you to the login page
 and getting hold of your ticket once you return.
@@ -145,17 +153,17 @@ and getting hold of your ticket once you return.
 To be able to log into your local copy, you need to configure your computer to
 request your local copy instead of the one running on the development instance.
 This is most easily done by modifying the system's hosts file, so that the
-system resolves account.dev.zetkin.org to localhost.
+system resolves www.dev.zetkin.org to localhost.
 
 Edit the hosts file (/etc/hosts on Mac or Linux) and make sure the following
 line is present (and has not been commented out with an initial `#`).
 
 ```
-127.0.0.1   account.dev.zetkin.org
+127.0.0.1   www.dev.zetkin.org
 ```
 
 Clear your browser and DNS cache and try again browsing to
-http://account.dev.zetkin.org. You will be redirected to the login page (even
+http://www.dev.zetkin.org. You will be redirected to the login page (even
 if you signed in earlier) and after logging in you should be redirected back to
 your local copy of the application.
 
@@ -176,7 +184,7 @@ container.
 
 ```
 $ gulp
-$ docker exec account_zetk_in sv restart account.zetk.in
+$ docker exec www_zetk_in sv restart app
 ```
 
 The first command rebuilds, and the second restarts the application in the
@@ -188,7 +196,7 @@ is to run `gulp watch` with an environment variable set to indicate the name of
 the Docker container in which the application is running.
 
 ```
-$ ZETKIN_CONTAINER_NAME=account_zetk_in gulp watch
+$ ZETKIN_CONTAINER_NAME=www_zetk_in gulp watch
 ```
 
 Once gulp watch is running, edit any file and watch how the code is rebuilt and
