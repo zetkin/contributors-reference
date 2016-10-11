@@ -5,26 +5,13 @@ to set up the development environment.
 The Zetkin Foundation uses Docker for development, to cleanly separate the
 applications and their requirements from the host system.
 
-## At a glance
+## Quickstart
 If you are mostly familiar with Docker, npm, gulp, networking and the Zetkin
-authentication workflow the following might make sense to you. Otherwise,
-continue reading for a detailed walk-through.
+authentication workflow, you might be able to skip right down to the _Summary_
+section of this document.
 
-```
-$ git clone git@github.com:richardolsson/www.zetk.in.git
-$ cd www.zetk.in
-$ docker build -t www_zetk_in env/app
-$ npm install
-$ gulp
-$ docker run -d -v $PWD:/var/app --name www_zetk_in \
-    --env ZETKIN_LOGIN_URL=http://login.dev.zetkin.org \
-    --env ZETKIN_APP_ID=a4 \
-    --env ZETKIN_APP_KEY=ghi789 \
-    --env ZETKIN_DOMAIN=dev.zetkin.org \
-    -p 80:80 www_zetk_in
-$ sudo sh -c 'echo "127.0.0.1 www.dev.zetkin.org" >> /etc/hosts'
-$ ZETKIN_CONTAINER_NAME=www_zetk_in gulp watch
-```
+If you feel unsure about any of this, please keep reading the deatailed
+walk-through.
 
 ## Docker basics
 Docker is a technology which allows applications to run within _containers_,
@@ -202,3 +189,24 @@ $ ZETKIN_CONTAINER_NAME=www_zetk_in gulp watch
 Once gulp watch is running, edit any file and watch how the code is rebuilt and
 the application restarted automatically. Just refresh the browser to see the
 changes.
+
+## Summary
+Below is a summary of the commands executed, in order, to get everything up and
+running. Depending on what app you are trying to get running, whether you're
+using Docker Machine or not, this may or may not be exactly what you need.
+
+```
+$ git clone git@github.com:richardolsson/www.zetk.in.git
+$ cd www.zetk.in
+$ docker build -t www_zetk_in env/app
+$ npm install
+$ gulp
+$ docker run -d -v $PWD:/var/app --name www_zetk_in \
+    --env ZETKIN_LOGIN_URL=http://login.dev.zetkin.org \
+    --env ZETKIN_APP_ID=a4 \
+    --env ZETKIN_APP_KEY=ghi789 \
+    --env ZETKIN_DOMAIN=dev.zetkin.org \
+    -p 80:80 www_zetk_in
+$ sudo sh -c 'echo "127.0.0.1 www.dev.zetkin.org" >> /etc/hosts'
+$ ZETKIN_CONTAINER_NAME=www_zetk_in gulp watch
+```
