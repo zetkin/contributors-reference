@@ -36,6 +36,12 @@ from using that port. You can temporarily stop your regular web server, or use
 [Docker Machine](https://docs.docker.com/machine/overview/) to run Docker in a
 VirtualBox virtual machine.
 
+__NOTE__: If you are using Docker Machine, there seems to be an issue related
+to DNS after moving between networks (as is common with a laptop). If you plan
+on running Zetkin inside Docker Machine, before you do anything, restart your
+virtual machine using `docker-machine restart default`, where "default" is the
+name of your machine.
+
 ## The Zetkin development instance
 For the convenience of Zetkin developers, the Zetkin Foundation maintains a
 development instance of Zetkin running at _dev.zetkin.org_. This instance is
