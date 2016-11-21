@@ -80,12 +80,15 @@ is richardolsson. All you need to do is find a suitable location on your drive
 and clone your fork of the application repository.
 
 ```
-$ git clone git@github.com:richardolsson/www.zetk.in.git
+$ git clone --recursive git@github.com:richardolsson/www.zetk.in.git
 $ cd www.zetk.in
 ```
 
 This creates a local copy of the code. If you're not familiar with Git, please
 first read the Git tutorial and come back here to continue once you feel ready.
+
+Note the `--recursive` option which makes sure that any sub-modules referenced
+in the repository are also checked out properly.
 
 ### 2. Set up application environment
 The application contains a Dockerfile which describes the environment it needs
