@@ -199,6 +199,17 @@ Once gulp watch is running, edit any file and watch how the code is rebuilt and
 the application restarted automatically. Just refresh the browser to see the
 changes.
 
+Some of the Zetkin apps rely on Webpack for hot reloading. Because of the way
+that this is currently implemented, if the app supports hot reloading, you have
+to run webpack locally. You can do so using a simple command from the project
+root.
+
+```
+$ npm run dev:hotload
+```
+If the "dev:hotload" script cannot be found, the app probably doesn't support
+webpack hot loading right now.
+
 ## Summary
 Below is a summary of the commands executed, in order, to get everything up and
 running. Depending on what app you are trying to get running, whether you're
