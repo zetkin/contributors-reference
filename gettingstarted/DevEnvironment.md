@@ -229,4 +229,5 @@ $ docker run -d -v $PWD:/var/app --name www_zetk_in \
     -p 80:80 www_zetk_in
 $ sudo sh -c 'echo "127.0.0.1 www.dev.zetkin.org" >> /etc/hosts'
 $ ZETKIN_CONTAINER_NAME=www_zetk_in gulp watch
+$ npm run dev:hotload
 ```
